@@ -1,11 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
+
+    <nav id="nav" class="navbar navbar-light bg-light">
+      <!-- Image and text -->
+  <a class="navbar-brand" href="#">
+    <img src="@/assets/logo.png" height="45" class="d-inline-block align-top" alt="" loading="lazy">
+    Fitapp
+  </a>
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+      <router-link to="/login">login</router-link> |
+      <router-link to="/signup">sign up</router-link> |
+
+    </nav>
     <router-view/>
   </div>
+
 </template>
 
 <style lang="scss">
