@@ -8,9 +8,13 @@
     Fitapp
   </a>
       <router-link to="/">Home</router-link> |
-      <router-link to="/login">login</router-link> |
-      <router-link to="/signup">sign up</router-link> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/signup">Sign up</router-link> |
+      <router-link to="/publish">Publish</router-link> |
 
+      <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+    </form>
     </nav>
     <router-view/>
   </div>
