@@ -30,10 +30,8 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+nav {   padding: 30px;   background-color: #d60808 !important;  .form-control{   background-color:white !important;
 
-  a {
     font-weight: bold;
     color: #2c3e50;
 
