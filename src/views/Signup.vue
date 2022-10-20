@@ -26,11 +26,11 @@
     placeholder="Password" />
     </div>
     <div class="form-group">
-    <label for="exampleInputPassword1">Repeat Password</label>
+    <label for="exampleInputPassword2">Repeat Password</label>
     <input type="password"
               v-model="passwordRepeat"
               class="form-control"
-              id="exampleInputPassword1"
+              id="exampleInputPassword2"
              placeholder="Password" />
     </div>
     <button type="button" @click="signup()" class="btn btn-primary">Submit</button>

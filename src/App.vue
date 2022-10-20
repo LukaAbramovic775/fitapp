@@ -48,11 +48,6 @@ if(user){
 else{
   console.log("no user");
   store.currentUser= null;
-
-  if (router.name != "login") {
-
-  router.push({ name:"login"})
-  }
 }
 });
 

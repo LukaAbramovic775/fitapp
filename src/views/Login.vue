@@ -24,7 +24,7 @@
   class="form-control"
  id="exampleInputPassword1" placeholder="Password" />
  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+ <button type="button" @click="login" class="btn btn-primary">Submit</button>
   </form>
   </div>
   <div class="col-sm"></div>
