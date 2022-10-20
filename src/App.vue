@@ -8,9 +8,22 @@
     Fitapp
   </a>
       <router-link to="/">Home</router-link> |
+
+      <li v-if="!store.currentUser">
       <router-link to="/login">Login</router-link> |
+    </li>
+
+    <li v-if="!store.currentUser">
       <router-link to="/signup">Sign up</router-link> |
+      </li>
+
+      <li v-if="store.currentUser">
       <router-link to="/publish">Publish</router-link> |
+    </li>
+
+    <li v-if="store.currentUser">
+      <a href="#" @click.prevent="logout()" class="nav-link">Logout</a> |
+    </li>
 
       <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search">
@@ -20,6 +33,46 @@
   </div>
 
 </template>
+<script>
+
+import store from "@/store";
+import {firebase} from "@/firebase";
+import router from "@/router";
+
+firebase.auth().onAuthStateChanged(user=>{
+if(user){
+  console.log(user.email);
+  store.currentUser= user.email;
+}
+
+else{
+  console.log("no user");
+  store.currentUser= null;
+
+  if (router.name != "login") {
+
+  router.push({ name:"login"})
+  }
+}
+});
+
+export default {
+      name: "app",
+      data() {
+            return{
+              store,
+            };
+      },
+       methods:{
+        logout(){
+
+          firebase.auth().signOut().then(() =>{
+            this.$router.push({ name:"login"});
+          });
+        },
+      },
+};
+</script>
 
 <style lang="scss">
 #app {
