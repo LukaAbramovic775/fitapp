@@ -22,6 +22,10 @@
     </li>
 
     <li v-if="store.currentUser">
+      <router-link to="/exercises">Exercises</router-link> |
+    </li>
+
+    <li v-if="store.currentUser">
       <a href="#" @click.prevent="logout()" class="nav-link">Logout</a> |
     </li>
 
