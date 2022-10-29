@@ -52,14 +52,17 @@ firebase.auth().onAuthStateChanged((user)=>{
  console.log('*** User', user.email);
  store.currentUser = user.email;
 
- if(store.needUser){
-  router.push({name:"Login"})
+ if(!currentRoute.meta.needsUser){
+  router.push({name:"home"});
  }
  } else {
  // User is not signed in.
  console.log('*** No user');
  store.currentUser = null;
- 
+
+ if (currentRoute.meta.needsUser) {
+  router.push({name:"login"});
+ }
  }
 });
 

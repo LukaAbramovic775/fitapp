@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import store from "@/store";
 
+Vue.use(VueRouter);
+
 const routes = [
   {
     path: '/',
@@ -45,9 +47,10 @@ const routes = [
   },
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+const router = new VueRouter({
+             mode: "history",
+             base: process.env.BASE_URL,
+             routes,
 });
 
 
@@ -57,14 +60,10 @@ console.log("stara ruta", from.name, "->", to.name, "korisnik", store.currentUse
 const noUser=store.currentUser== null;
 
 if (noUser && to.meta.needsUser) {
-
-  store.needUser = to.meta.needsUser;
-
 next("login");
 }
 
 else {
-  store.needUser = to.meta.needsUser;
   next();
 }
 })
