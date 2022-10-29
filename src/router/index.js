@@ -66,6 +66,6 @@ next("login");
 else {
   next();
 }
-})
+});
 
 export default router;
