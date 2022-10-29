@@ -3,16 +3,13 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import store from "@/store";
 
-Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    met: {
-      needsUser: true,
-    },
+    meta: {
+      needsUser: true,},
   },
   {
     path: '/login',
@@ -48,22 +45,28 @@ const routes = [
   },
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+
 
 router.beforeEach((to, from, next) =>{
 console.log("stara ruta", from.name, "->", to.name, "korisnik", store.currentUser)
 
 const noUser=store.currentUser== null;
 
-if (noUser && to.meta.needsUser){
+if (noUser && to.meta.needsUser) {
+
+  store.needUser = to.meta.needsUser;
+
 next("login");
-}else {
+}
+
+else {
+  store.needUser = to.meta.needsUser;
   next();
 }
-});
+})
 
 export default router;

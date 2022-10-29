@@ -43,19 +43,26 @@ import store from "@/store";
 import {firebase} from "@/firebase";
 import router from "@/router";
 
-firebase.auth().onAuthStateChanged(user=>{
-if(user){
-  console.log(user.email);
-  store.currentUser= user.email;
+firebase.auth().onAuthStateChanged((user)=>{
 
-  if(!currentRoute.meta.needsUser){
-    router.push({ name: "home"});
-  }
-} else{
-  console.log("no user");
-  store.currentUser= null;
-}
+  const currentRoute=router.currentRoute;
+ 
+  if (user) {
+ // User is signed in.
+ console.log('*** User', user.email);
+ store.currentUser = user.email;
+
+ if(store.needUser){
+  router.push({name:"Login"})
+ }
+ } else {
+ // User is not signed in.
+ console.log('*** No user');
+ store.currentUser = null;
+ 
+ }
 });
+
 
 export default {
       name: "app",
