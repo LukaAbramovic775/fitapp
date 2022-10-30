@@ -63,6 +63,16 @@ methods: {
                   console.log("ID:", doc.id)
                   console.log("PODACI:", doc.data());
             
+                   const data = doc.data();
+                   
+
+                  this.cards.push({
+                       id: doc.id,
+                       time: data.posted_at,
+                       description: data.desc,
+                       url: data.url,
+
+                  });
             });
          });
     },
