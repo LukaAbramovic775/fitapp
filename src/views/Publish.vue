@@ -36,17 +36,43 @@ export default {
 name: "publish",
 data: function() {
     return {
+           cards: [],
            store,
            newImageDescription: "",
            newImageUrl: "",
     };
 },
-methods:{
+
+mounted() {
+    
+    this.getPosts();
+    //
+    //
+},
+
+methods: {
+
+    getPosts() {
+
+         console.log("firebase dohvat...");
+
+         db.collection("posts")
+         .get()
+         .then((query) =>{ 
+            query.forEach((doc) =>{ 
+                  console.log("ID:", doc.id)
+                  console.log("PODACI:", doc.data());
+            
+            });
+         });
+    },
+
     postNewImage(){
     const imageUrl = this.newImageUrl;
     const imageDescription = this.newImageDescription;
 
-db.collection("posts").add({
+db.collection("posts")
+.add({
     url: imageUrl,
     desc: imageDescription,
     email: store.currentUser,
