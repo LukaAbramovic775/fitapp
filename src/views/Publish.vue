@@ -1,5 +1,12 @@
 
 <template>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-7">
+    <CBUM v-for="card in cards" :key="card" :info="card"/>
+    </div>
+</div>
+
     <form @submit.prevent="postNewImage" class="form-inline mb-5">
  <div class="form-group">
  <label for="imageUrl">Image URL</label>
@@ -27,9 +34,13 @@ image</button>
 </template>
 
 <script>
-
 import store from "@/store";
 import { db } from "@/firebase";
+import CBUM from "@/components/CBUM.vue";
+
+let cards=[];
+
+cards= [];
 
 
 export default {
