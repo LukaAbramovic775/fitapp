@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-2"></div>
     <div class="col-7">
-    <CBUM v-for="card in cards" :key="card" :info="card"/>
+    <CBUM v-for="card in cards" :key="card.id" :info="card"/>
     </div>
 </div>
 
@@ -68,14 +68,14 @@ methods: {
          console.log("firebase dohvat...");
 
          db.collection("posts")
+         .orderBy("posted at", "desc")
+         .limit(10)
          .get()
          .then((query) =>{ 
+            this.cards= [];
             query.forEach((doc) =>{ 
-                  console.log("ID:", doc.id)
-                  console.log("PODACI:", doc.data());
-            
                    const data = doc.data();
-                   
+                   console.log(data);
 
                   this.cards.push({
                        id: doc.id,
@@ -101,12 +101,23 @@ db.collection("posts")
    })
    .then(()=>{
     console.log("spremljeno",doc);
+    this.newImageDescription="";
+    this.newImageUrl="";
 
+    this.getPosts();
    })
    .catch((e)=>{
     console.error(e);
 });
     },
   },
+  computed: {
+filteredCards() {
+
+    let termin= this.store.searchTerm;
+    
+    return this.cards.filter((card) => card.description.includes(temrin));
+  },
+},
 };
 </script>

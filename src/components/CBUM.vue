@@ -7,15 +7,23 @@
        <img class="card-img-top" :src="info" />
        </div>
        <div class="card-footer text muted">
+        {{postedFromNow}}
        </div>
     </div>
    </template>
    
    <script>
-   
+   import moment from "moment";
+
    export default{
        name: "CBUM",
        props: ["info"],
+       computed: {
+
+        postedFromNow() {
+         return moment(this.info.time).fromNow();
+        },
+    },
    };
    
    </script>
