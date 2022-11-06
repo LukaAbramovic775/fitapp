@@ -15,7 +15,7 @@
  
 
  <div class="form-group">
- <label for="imageDescription">Description</label>
+ <label for="imageDescription"> Description </label>
  <input
  v-model="newImageDescription"
 type="text"
