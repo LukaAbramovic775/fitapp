@@ -8,16 +8,12 @@
 </div>
 
     <form @submit.prevent="postNewImage" class="form-inline mb-5">
+
  <div class="form-group">
- <label for="imageUrl">Image URL</label>
- <input
- v-model="newImageUrl"
-type="text"
-class="form-control ml-2"
-placeholder="Enter the image URL"
-id="imageUrl"
- />
- </div>
+
+ <croppa :width="400" :height="400" placeholder="Učitaj sliku.." v-model="imageReference"> </croppa>
+ 
+
  <div class="form-group">
  <label for="imageDescription">Description</label>
  <input
@@ -27,6 +23,7 @@ class="form-control ml-2"
 placeholder="Enter the image description"
 id="imageDescription"
  />
+ </div>
  </div>
  <button type="submit" class="btn btn-primary ml-2">Post
 image</button>
@@ -51,6 +48,7 @@ data: function() {
            store,
            newImageDescription: "",
            newImageUrl: "",
+           imageReference: null,
     };
 },
 
