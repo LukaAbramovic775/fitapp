@@ -24,7 +24,7 @@
 
 <script>
 import store from "@/store";
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 import CBUM from "@/components/CBUM.vue";
 
 let cards = [];
@@ -71,25 +71,52 @@ export default {
         },
 
         postNewImage(){
-            const imageUrl = this.newImageUrl;
-            const imageDescription = this.newImageDescription;
+
+            this.imageReference.generateBlob((blobData) => {
+
+                 console.log(blobData);
+
+                 let imageName ="posts/" + store.currentUser + "/" + Date.now() + ".png";
+                 
+                 storage
+                 .ref(imageName)
+                 .put(blobData)
+                 .then(result => {
+                  result.ref.getDownloadURL().then((url) => {
+                             console.log("Javni link", url);
+
+                             const imageDescription = this.newImageDescription;
 
             db.collection("posts")
-            .add({
-                url: imageUrl,
-                desc: imageDescription,
-                email: store.currentUser,
-                posted_at: Date.now(),
-            })
-            .then(()=>{
-                console.log("spremljeno",doc);
-                this.newImageDescription="";
-                this.newImageUrl="";
+              .add({
+              url: imageUrl,
+              desc: imageDescription,
+              email: store.currentUser,
+              posted_at: Date.now(),
+              })
+             .then((doc)=>{
+              console.log("spremljeno",doc);
+              this.newImageDescription="";
+              this.imageReference = null;
+   
+             this.getPosts();
 
-                this.getPosts();
-            })
+             })
             .catch((e)=>{
-                console.error(e);
+            console.error(e);
+
+            });
+
+
+                  })
+                  .catch((e) => {
+                   console.error(e);
+                  });
+
+                })
+                .catch(e => {
+                    console.error(e);
+                 });
             });
         },
     },
