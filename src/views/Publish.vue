@@ -69,31 +69,50 @@ export default {
                 });
             });
         },
+        
+        getImage(){
+            //Promise based, omotač oko callbacka
+
+            return new Promise((resolveFn, errorFn) => {
+                   this.imageReference.generateBlob((data) => {
+                resolveFn(data);
+
+                   });
+            });
+        },
 
         postNewImage(){
 
-            this.imageReference.generateBlob((blobData) => {
+            //this.imageReference.generateBlob((blobData) => {
+                
+                this.getImage()
+                .then((data) =>{
 
                  console.log(blobData);
-
                  let imageName ="posts/" + store.currentUser + "/" + Date.now() + ".png";
                  
-                 storage
-                 .ref(imageName)
-                 .put(blobData)
-                 .then(result => {
-                  result.ref.getDownloadURL().then((url) => {
+                 return storage.ref(imageName).put(blobData)
+                })
+                
+                 .then((result) => {
+
+                  return result.ref.getDownloadURL() //Promise
+                 })
+
+                  .then((url) => {
                              console.log("Javni link", url);
 
                              const imageDescription = this.newImageDescription;
 
-            db.collection("posts")
-              .add({
+              return db.collection("posts").add({
               url: imageUrl,
               desc: imageDescription,
               email: store.currentUser,
               posted_at: Date.now(),
-              })
+              });
+
+             })
+
              .then((doc)=>{
               console.log("spremljeno",doc);
               this.newImageDescription="";
@@ -105,18 +124,6 @@ export default {
             .catch((e)=>{
             console.error(e);
 
-            });
-
-
-                  })
-                  .catch((e) => {
-                   console.error(e);
-                  });
-
-                })
-                .catch(e => {
-                    console.error(e);
-                 });
             });
         },
     },
