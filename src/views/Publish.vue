@@ -4,8 +4,8 @@
         <div class="col-7">
         <CBUM v-for="card in cards" :key="card.id" :info="card"/>
         </div>
-
-        <form @submit.prevent="postNewImage" class="mb-5">
+        <img v-if="loading" class="loading" :src="require('@/assets/loading.gif')" />
+        <form v-if="!loading" @submit.prevent="postNewImage" class="mb-5">
             <div class="form-group">
                 <croppa :width="400" :height="400" placeholder="Učitaj sliku.." v-model="imageReference"> </croppa>
                 <label for="imageDescription"> Description </label>
@@ -17,8 +17,8 @@
                     id="imageDescription"
                 />
             </div>
+            <button type="submit" class="btn btn-primary ml-2">Post image</button>
         </form>
-        <button type="submit" class="btn btn-primary ml-2">Post image</button>
     </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
     name: "publish",
     data: function() {
         return {
+            loading: false,
             cards: [],
             store,
             newImageDescription: "",
@@ -81,50 +82,36 @@ export default {
             });
         },
 
-        postNewImage(){
-
-            //this.imageReference.generateBlob((blobData) => {
-                
-                this.getImage()
-                .then((data) =>{
-
-                 console.log(blobData);
+        async postNewImage(){
+            try {
+                 let blobData= await this.getImage()
                  let imageName ="posts/" + store.currentUser + "/" + Date.now() + ".png";
-                 
-                 return storage.ref(imageName).put(blobData)
-                })
-                
-                 .then((result) => {
+                 let result= await storage.ref(imageName).put(blobData);
+                 let url = await result.ref.getDownloadURL(); //Promise
+        
 
-                  return result.ref.getDownloadURL() //Promise
-                 })
+                console.log("Javni link", url);
 
-                  .then((url) => {
-                             console.log("Javni link", url);
+                const imageDescription = this.newImageDescription;
 
-                             const imageDescription = this.newImageDescription;
+                let doc = await db.collection("posts").add({
+                url: imageUrl,
+                desc: imageDescription,
+                email: store.currentUser,
+                posted_at: Date.now(),
+                });
 
-              return db.collection("posts").add({
-              url: imageUrl,
-              desc: imageDescription,
-              email: store.currentUser,
-              posted_at: Date.now(),
-              });
+             
 
-             })
-
-             .then((doc)=>{
-              console.log("spremljeno",doc);
-              this.newImageDescription="";
-              this.imageReference = null;
+                console.log("spremljeno",doc);
+                this.newImageDescription="";
    
-             this.getPosts();
-
-             })
-            .catch((e)=>{
-            console.error(e);
-
-            });
+                this.getPosts();
+                }
+        catch(e) {
+            console.error("greška,e");
+        }
+        this.loading = false;  
         },
     },
     computed: {
@@ -137,3 +124,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.loading{
+    width: 400px;
+}
+</style>
