@@ -1,7 +1,7 @@
 <template>
     <div class="card text-center">
        <div class="card-header">
-        Leg Muscles
+        <router-link id="em" to="/exercises">Leg Muscles</router-link>
        </div>
        <div class="card-body p-0">
        <img class="card-img-top" src="../assets/Legs.png" />
