@@ -7,26 +7,30 @@
     <img src="@/assets/logo.png" height="45" class="d-inline-block align-top" alt="" loading="lazy">
     Fitapp
   </a>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>  |
 
       <li v-if="!store.currentUser">
       <router-link to="/login">Login</router-link> |
     </li>
 
     <li v-if="!store.currentUser">
-      <router-link to="/signup">Sign up</router-link> |
+      <router-link to="/signup">Sign up</router-link>  |
       </li>
 
       <li v-if="store.currentUser">
-      <router-link to="/publish">Publish</router-link> |
+      <router-link to="/publish">Publish</router-link>  |
     </li>
 
     <li v-if="store.currentUser">
-      <router-link to="/exercises">Exercises</router-link> |
+      <router-link to="/body muscles">Body Muscles</router-link> |
+    </li> 
+
+    <li v-if="store.currentUser">
+      <router-link to="/Exercises">Exercises</router-link>  |
     </li>
 
     <li v-if="store.currentUser">
-      <a href="#" @click.prevent="logout()" class="nav-link">Logout</a> |
+      <a href="#" @click.prevent="logout()" class="nav-link">Logout</a>|
     </li>
 
       <form class="form-inline my-2 my-lg-0">

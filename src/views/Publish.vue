@@ -34,6 +34,9 @@ let cards = [];
 
 export default {
     name: "publish",
+    components:{
+    CBUM,
+    },
     data: function() {
         return {
             loading: false,
@@ -119,7 +122,7 @@ export default {
 
             let termin = this.store.searchTerm;
             
-            return this.cards.filter((card) => card.description.includes(temrin));
+            return this.cards.filter((card) => card.description.includes(termin));
         }
     }
 };
