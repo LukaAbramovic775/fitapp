@@ -4,7 +4,7 @@
 <p id="nazivco"><b>DumbbellFly</b></p>
 </div>
 <div class="card-body p-0">
-<img id="DumbbellFly" class="card-img-top" src="@/assets/DumbbellFly.jpg"/>
+<img id="DumbbellFly" class="card-img-top" src="@/assets/DumbbellFly.png"/>
 </div>
 </div>
 </template>

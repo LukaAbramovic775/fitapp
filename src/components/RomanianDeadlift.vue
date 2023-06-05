@@ -4,7 +4,7 @@
 <p id="nazivco"><b>RomanianDeadlift</b></p>
 </div>
 <div class="card-body p-0">
-<img id="RomanianDeadlift" class="card-img-top" src="@/assets/RomanianDeadlift.jpg"/>
+<img id="RomanianDeadlift" class="card-img-top" src="@/assets/RomanianDeadlift.png"/>
 </div>
 </div>
 </template>

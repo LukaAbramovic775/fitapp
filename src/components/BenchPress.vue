@@ -4,7 +4,7 @@
 <p id="nazivco"><b>BenchPress</b></p>
 </div>
 <div class="card-body p-0">
-<img id="BenchPress" class="card-img-top" src="@/assets/BenchPress.jpg"/>
+<img id="BenchPress" class="card-img-top" src="@/assets/BenchPress.png"/>
 </div>
 </div>
 </template>

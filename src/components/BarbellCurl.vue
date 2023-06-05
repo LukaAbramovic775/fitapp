@@ -4,7 +4,7 @@
 <p id="nazivco"><b>BarbellCurl</b></p>
 </div>
 <div class="card-body p-0">
-<img id="BarbellCurl" class="card-img-top" src="@/assets/BarbellCurl.jpg"/>
+<img id="BarbellCurl" class="card-img-top" src="@/assets/BarbellCurl.png"/>
 </div>
 </div>
 </template>

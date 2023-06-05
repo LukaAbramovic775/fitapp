@@ -4,7 +4,7 @@
 <p id="nazivco"><b>Legpress</b></p>
 </div>
 <div class="card-body p-0">
-<img id="Legpress" class="card-img-top" src="@/assets/Legpress.jpg"/>
+<img id="Legpress" class="card-img-top" src="@/assets/Legpress.png"/>
 </div>
 </div>
 </template>
