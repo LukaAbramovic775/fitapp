@@ -6,35 +6,35 @@
         <BarbellRow/>
       </div>
       <div class="col-md-4">
-        <DumbbellFly/>
+        <CableRow/>
       </div>
       <div class="col-md-4">
-        <BarbellRow/>
+        <BarbellCurl/>
       </div>
     </div>
  
     <div class="row">
       <div class="col-md-4">
-        <BarbellRow/>
+        <BenchPress/>
       </div>
       <div class="col-md-4">
         <DumbbellFly/>
       </div>
       <div class="col-md-4">
-        <BarbellRow/>
+        <HammerCurls/>
       </div>
     </div>
 
  
     <div class="row">
       <div class="col-md-4">
-        <BarbellRow/>
+        <Squat/>
       </div>
       <div class="col-md-4">
-        <DumbbellFly/>
+        <RomanianDeadlift/>
       </div>
       <div class="col-md-4">
-        <BarbellRow/>
+        <Legpress/>
       </div>
     </div>
  

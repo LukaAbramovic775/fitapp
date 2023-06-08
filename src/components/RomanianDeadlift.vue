@@ -22,7 +22,7 @@ export default{
 }
 #nazivco{
     margin:5px;
-    color:rgb(93, 92, 165);
+    color:rgbv(8, 6, 83);
     font-size:20px;
 }
 </style>

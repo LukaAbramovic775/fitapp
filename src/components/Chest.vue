@@ -18,3 +18,10 @@
    };
    
    </script>
+
+<style lang="scss">
+#Chest{
+    height:450px;
+    width: 450px;
+}
+</style>

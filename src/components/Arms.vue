@@ -18,3 +18,10 @@ export default{
 };
 
 </script>
+
+<style lang="scss">
+#Arms{
+    height:450px;
+    width: 450px;
+}
+</style>
