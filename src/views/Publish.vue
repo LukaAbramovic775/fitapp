@@ -1,23 +1,23 @@
 <template>
-    <div class="row">
-        <div class="col-8">
+    <div class="row-5">
+        <div class="col-5">
+            <img v-if="loading" class="loading" :src="require('@/assets/loading.gif')" />
+            <form v-if="!loading" @submit.prevent="postNewImage" class="mb-5">
+                <div class="form-group">
+                    <croppa :width="400" :height="400" placeholder="Učitaj sliku.." v-model="imageReference"> </croppa>
+                    <label for="imageDescription"> Description </label>
+                    <input
+                        v-model="newImageDescription"
+                        type="text"
+                        class="form-control ml-2"
+                        placeholder="Enter the image description"
+                        id="imageDescription"
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary ml-2">Post image</button>
+            </form>
+            <CBUM v-for="card in filteredCards" :key="card.id" :info="card"/>
         </div>
-        <img v-if="loading" class="loading" :src="require('@/assets/loading.gif')" />
-        <form v-if="!loading" @submit.prevent="postNewImage" class="mb-5">
-            <div class="form-group">
-                <croppa :width="400" :height="400" placeholder="Učitaj sliku.." v-model="imageReference"> </croppa>
-                <label for="imageDescription"> Description </label>
-                <input
-                    v-model="newImageDescription"
-                    type="text"
-                    class="form-control ml-2"
-                    placeholder="Enter the image description"
-                    id="imageDescription"
-                />
-            </div>
-            <button type="submit" class="btn btn-primary ml-2">Post image</button>
-        </form>
-        <CBUM v-for="card in filteredCards" :key="card.id" :info="card"/>
     </div>
 </template>
 
@@ -26,12 +26,12 @@ import store from "@/store";
 import { db, storage } from "@/firebase";
 import CBUM from "@/components/CBUM.vue";
 
-let cards = [];
-
-cards= [
-    { url: "https://i.pinimg.com/564x/63/6d/45/636d45eb8fd83aa04e621b362ae1a699.jpg", description: "slika 1" }
-
-];
+//let cards = [];
+//
+//cards= [
+//    { url: "https://i.pinimg.com/564x/63/6d/45/636d45eb8fd83aa04e621b362ae1a699.jpg", description: "slika 1" }
+//
+//];
 
 
 export default {
@@ -46,6 +46,9 @@ export default {
             imageReference: null,
         };
     },
+    mounted(){
+        this.getPosts();
+    },
     methods: {
 
         getPosts(){
@@ -53,7 +56,7 @@ export default {
             console.log("firebase dohvat...");
 
             db.collection("posts")
-                .orderBy("posted at", "desc")
+                .orderBy("posted_at", "desc")
                 .limit(10)
                 .get()
                 .then((query) =>{ 
