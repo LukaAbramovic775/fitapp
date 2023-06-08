@@ -1,8 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-7">
-        <CBUM v-for="card in cards" :key="card.id" :info="card"/>
+        <div class="col-8">
         </div>
         <img v-if="loading" class="loading" :src="require('@/assets/loading.gif')" />
         <form v-if="!loading" @submit.prevent="postNewImage" class="mb-5">
@@ -19,6 +17,7 @@
             </div>
             <button type="submit" class="btn btn-primary ml-2">Post image</button>
         </form>
+        <CBUM v-for="card in filteredCards" :key="card.id" :info="card"/>
     </div>
 </template>
 
@@ -29,14 +28,14 @@ import CBUM from "@/components/CBUM.vue";
 
 let cards = [];
 
-//cards= [];
+cards= [
+    { url: "https://i.pinimg.com/564x/63/6d/45/636d45eb8fd83aa04e621b362ae1a699.jpg", description: "slika 1" }
+
+];
 
 
 export default {
     name: "publish",
-    components:{
-    CBUM,
-    },
     data: function() {
         return {
             loading: false,
@@ -54,24 +53,24 @@ export default {
             console.log("firebase dohvat...");
 
             db.collection("posts")
-            .orderBy("posted at", "desc")
-            .limit(10)
-            .get()
-            .then((query) =>{ 
-                this.cards = [];
-                query.forEach((doc) =>{ 
-                    const data = doc.data();
-                    console.log(data);
+                .orderBy("posted at", "desc")
+                .limit(10)
+                .get()
+                .then((query) =>{ 
+                    this.cards = [];
+                    query.forEach((doc) =>{ 
+                        const data = doc.data();
+                        console.log(data);
 
-                    this.cards.push({
-                        id: doc.id,
-                        time: data.posted_at,
-                        description: data.desc,
-                        url: data.url,
+                        this.cards.push({
+                            id: doc.id,
+                            time: data.posted_at,
+                            description: data.desc,
+                            url: data.url,
 
+                        });
                     });
                 });
-            });
         },
         
         getImage(){
@@ -98,7 +97,7 @@ export default {
                 const imageDescription = this.newImageDescription;
 
                 let doc = await db.collection("posts").add({
-                url: imageUrl,
+                url: url,
                 desc: imageDescription,
                 email: store.currentUser,
                 posted_at: Date.now(),
@@ -108,12 +107,11 @@ export default {
 
                 console.log("spremljeno",doc);
                 this.newImageDescription="";
-   
+                this.imageReference.remove();
                 this.getPosts();
+                } catch(e) {
+                console.error("greška", e);
                 }
-        catch(e) {
-            console.error("greška,e");
-        }
         this.loading = false;  
         },
     },
@@ -123,8 +121,11 @@ export default {
             let termin = this.store.searchTerm;
             
             return this.cards.filter((card) => card.description.includes(termin));
-        }
-    }
+        },
+    },
+    components: {
+        CBUM,
+    },
 };
 </script>
 
