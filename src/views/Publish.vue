@@ -16,7 +16,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary ml-2">Post image</button>
             </form>
-            <CBUM v-for="card in filteredCards" :key="card.id" :info="card"/>
+            <CBUM v-for="card in filteredCards" :key="card.id" :info="card" :showcomments="true"/>
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@
 import store from "@/store";
 import { db, storage } from "@/firebase";
 import CBUM from "@/components/CBUM.vue";
+import firebase from "firebase";
 
 //let cards = [];
 //

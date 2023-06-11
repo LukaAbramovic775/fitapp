@@ -5,7 +5,7 @@
     </template>
    
     <script>
-    import InstagramCard from "@/components/CBUM.vue";
+    import CBUM from "@/components/CBUM.vue";
     import store from "@/store.js";
    
     export default {
