@@ -46,6 +46,7 @@
 import store from "@/store";
 import {firebase} from "@/firebase";
 import router from "@/router";
+import { db, storage } from "@/firebase.js";
 
 firebase.auth().onAuthStateChanged((user)=>{
 
@@ -55,6 +56,19 @@ firebase.auth().onAuthStateChanged((user)=>{
  // User is signed in.
  console.log('*** User', user.email);
  store.currentUser = user.email;
+
+ db.collection("korisnici")
+ .doc(user.email)
+ .get()
+ .then(doc => {
+ if (doc.exists) {
+ console.log("Document data:", doc.data());
+ store.tipKorisnika = doc.data().tipProfila;
+ } else {
+ // doc.data() will be undefined in this case
+ console.log("No such document!");
+ }
+ });
 
  if(!currentRoute.meta.needsUser){
   router.push({name:"home"});

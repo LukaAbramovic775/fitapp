@@ -33,8 +33,20 @@
               id="exampleInputPassword2"
              placeholder="Password" />
     </div>
+    <div class="form-group">
+     <label for="tipProfila">Tip profila</label>
+     <select v-model="odabraniTipProfila"
+     id="tipProfila"
+     class="form-control form-control-lg">
+     <option v-for="k in tipProfila">{{k}}</option>
+     </select>
+     </div>
     <button type="button" @click="signup()" class="btn btn-primary">Submit</button>
     </form>
+    <div v-if="errorMessage" class="alert alert-danger">
+          <strong>Ups!</strong>
+           {{ errorMessage }}
+     </div>
     </div>
     <div class="col-sm"></div>
     </div>
@@ -45,6 +57,8 @@
 <script>
 
 import {firebase} from "@/firebase";
+import store from '@/store.js'
+import { db, storage } from "@/firebase.js";
 
    export default {
     name: "signup",
@@ -53,6 +67,9 @@ import {firebase} from "@/firebase";
                   username: "",
                   password: "",
                   passwordRepeat: "",
+                  errorMessage: "",
+                  tipProfila: ["Javni","Privatni"],
+                  odabraniTipProfila:"",
           };
 
         },
@@ -61,15 +78,27 @@ import {firebase} from "@/firebase";
                 firebase
                 .auth()
                 .createUserWithEmailAndPassword(this.username, this.password)
-                .then(function() {
-                     console.log("Uspješna registracija");
-                })
-                .catch(function(error) {
-                     console.error("Došlo je do greške", error);
-                });
-                console.log("Nastavak");
-        },
-   },
-};
+                .then(() => {
+                let id = this.email;
+               db.collection("users")
+               .doc(id)
+               .set({
+               tipProfila: this.odabraniTipProfila
+})
+               .then(function() {
+               console.log("Document successfully written!");
+ })
+               .catch(function(error) {
+               console.error("Error writing document: ", error);
+     });
+ })
+               .catch(error => {
+               console.error(error);
+               this.errorMessage = error.message;
+               console.log("Nastavak");
+ });
+ }
+ }
+}
 </script>
 
