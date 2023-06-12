@@ -2,6 +2,9 @@
   "name": "fitapp",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.20.0"
+  },
   "scripts": {
     "serve": "vue-cli-service --openssl-legacy-provider serve",
     "build": "vue-cli-service --openssl-legacy-provider build"
