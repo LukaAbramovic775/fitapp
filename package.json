@@ -6,8 +6,8 @@
     "node": "16.20.0"
   },
   "scripts": {
-    "serve": "vue-cli-service --openssl-legacy-provider serve",
-    "build": "vue-cli-service --openssl-legacy-provider build"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "core-js": "^3.31.0",
